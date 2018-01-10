@@ -1,0 +1,131 @@
+<!--MAP START-->
+<div id="map" style="height: 400px; width: 750px;"></div>
+
+<script>
+  var imageYes = 'https://2.bp.blogspot.com/-ujlDjtwuyIU/WjqwMNUGfsI/AAAAAAAACBg/Iu-VFmQ0Rsk2ddv34Ipqc7Bue0j7C2ucQCLcBGAs/s1600/cheeseburger32.png';
+  var imageNo = 'https://2.bp.blogspot.com/-ZEaRkYdvOiY/WjqwI9Yt-cI/AAAAAAAACBc/gr0Bx0SMYHg0WuiuX5lcr47WuQoOzuVUgCLcBGAs/s1600/lemon32.png';
+
+  // countries
+  var countries = [
+    {
+      name: 'Belarus',
+      lat: 53.90454,
+      long: 27.561524,
+      zIndex: 4,
+      image: imageYes,
+      content: '<p>21.12.2017, <a href="https://www.belrynok.by/2017/12/23/dekret-8-o-tsifrovoj-ekonomike-polnyj-tekst/" target="_blank">Белрынок</a><br />Александр Лукашенко подписал декрет «О развитии цифровой экономики».<br /><ul style="text-align: left;"><li>До 1 января 2023 года налогами не облагаются майнинг, создание токенов и операции с ними.</li><li>Намайненные и приобретенные токены признаются активами, а размещение токенов юридическими лицами приводит к возникновению обязательств перед владельцами токенов.</li><li>Физическим лицам можно владеть токенами, майнить их, хранить в виртуальных кошельках, обменивать на другие токены, приобретать и отчуждать за белорусские рубли, иностранную валюту, электронные деньги. Еще токены можно подарить или завещать. </li></ul></p>'
+    },
+    {
+      name: 'South Korea',
+      lat: 37.566535,
+      long: 126.977969,
+      zIndex: 4,
+      image: imageNo,
+      content: '<p>19.12.2017, <a href="https://www.reuters.com/article/us-southkorea-bitcoin/south-korea-financial-regulator-says-virtual-currencies-are-not-currencies-idUSKBN1ED0IY" target="_blank">Reuters</a><br />Южная Корея. Не признает криптовалюты.</p>'
+    },
+    {
+      name: 'Russia',
+      lat: 55.755826,
+      long: 37.6172999,
+      zIndex: 4,
+      image: imageNo,
+      content: '<p>21.12.2017, <a href="https://www.minfin.ru/ru/press-center/?id_4=34977&area_id=4&page_id=2119&popup=Y" target="_blank">minfin.ru</a><br />Россия. Минфин и Банк России представили законопроект о регулировании ICO. Алексей Моисеев: «<...>регулирование носит очень легкий характер, базовый и минимально необходимый. Мы даем юридическое определение большинству понятий, которые используются (возможно, мы какие-то понятия упустили, будем готовы услышать ваши предложения; тем, которые мы вспомнили, мы дали определения)».<br />Про криптовалюты будут решать попозже, а сам законопроект запустят в публичное обсуждение в самое ближайшее время. Как я понимаю, найти его можно будет на сайте regulation.gov.ru.</p>'
+    },
+    {
+      name: 'Japan',
+      lat: 35.6894875,
+      long: 139.69170639,
+      zIndez: 4,
+      image: imageYes,
+      content: '<p>31.03.2017, <a href="http://tass.ru/ekonomika/4830770">CoinDesk</a><br />С 1 апреля 2017 года биткоин признан в Японии как платежное средство.</p>'
+    },
+    {
+      name: 'France',
+      lat: 48.856614,
+      long: 2.3522219,
+      zIndex: 4,
+      image: imageNo,
+      content: '<p>17.12.2017, <a href="https://www.reuters.com/article/uk-markets-bitcoin-g20/french-finance-minister-calls-for-bitcoin-regulation-debate-at-g20-idUSKBN1EB0SZ" target="_blank">Reuters</a><br />Французский министр финансов Брюно Ле Мэр предлагает обсудить регулирование биткоина на саммите G20.<br />Тем временем <a href="https://www.reuters.com/article/us-france-finance/france-to-allow-blockchain-for-trading-unlisted-securities-idUSKBN1E22OA" target="_blank">французское правительство разрешило</a> банкам и финтехкомпаниям торговать на блокчейн-платформах ценными бумагами из внебиржевого оборота. Чтобы образ Парижа как центра финансовых инноваций засиял, как новенький франк.</p>'
+    },
+    {
+      name: 'Nigeria',
+      lat: 9.0764785,
+      long: 7.398574,
+      zIndex: 4,
+      image: imageNo,
+      content: '<p>17.01.2017, <a href="https://www.naija.ng/1083244-central-bank-nigeria-bans-transaction-bitcoins-onecoin-others.html#1083244" target="_blank">Naija.ng</a><br />В Нигерии Центробанк запретил операции с криптовалютами.</p>'
+    },
+    {
+      name: 'Colombia',
+      lat: 4.71098859,
+      long: -74.072092,
+      zIndex: 4,
+      image: imageNo,
+      content: '<p>28.06.2017, <a href="https://panampost.com/felipe-fernandez/2017/06/28/colombia-wants-to-tax-bitcoin-despite-declaring-it-illegal/" target="_blank">panampost.com</a><br />Колумбия. Криптовалюты не разрешены, с регулированием пока не определились, но за инвестиции в крипту, скорее всего, придется платить налог.</p>'
+    },
+    {
+      name: 'Taiwan',
+      lat: 23.69781,
+      long: 120.9605149,
+      zIndex: 4,
+      image: imageNo,
+      content: '<p>24.11.2017, <a href="https://www.reuters.com/article/taiwan-regulator-china/taiwan-financial-regulator-says-aims-to-send-official-to-china-in-dec-idUSB9N1A905F" target="_blank">Reuters</a><br />Тайвань. Криптовалюты не разрешены, в декабре важные финансисты собираются решить вопросы регуляции. Хотят следовать по пути Сингапура.</p>'
+    },
+    {
+      name: 'Venezuela',
+      lat: 10.4805937,
+      long: -66.90360629999998,
+      zIndex: 4,
+      image: imageYes,
+      content: '<p>06.01.2017, a href="https://www.reuters.com/article/us-venezuela-economy/maduro-says-venezuela-will-issue-5-9-billion-in-oil-backed-cryptocurrency-idUSKBN1EV02S" target="_blank">Reuters</a><br />Венесуэла. Президент Николас Мадуро заявил, что Венесуэла выпустит 100 миллионов единиц собственной криптовалюты «петро». Петро будет обеспечен венесуэльской нефтью. </p>'
+    }
+  ];
+
+  // Adds markers to the map.
+  function setMarkers(map) {
+    var shape = {
+      coords: [0, 0, 0, 32, 32, 32, 32, 0],
+      type: 'poly'
+    };
+    for (var i in countries) {
+      var country = countries[i];
+      var image = {
+        url: country.image,
+        size: new google.maps.Size(32, 32),
+        origin: new google.maps.Point(0, 0),
+        anchor: new google.maps.Point(32, 0)
+      };
+      var marker = new google.maps.Marker({
+        position: { lat: country.lat, lng: country.long },
+        icon: image,
+        shape: shape,
+        title: country.name,
+        zIndex: country.zIndex,
+        map: map
+      });
+      var infoWindow = new google.maps.InfoWindow();
+
+      if (country.content.length > 0) {
+        (function (marker, country) {
+            google.maps.event.addListener(marker, "click", function (e) {
+              infoWindow.setContent("<div style = 'width:200px;min-height:40px'>" + country.content + "</div>");
+              infoWindow.open(map, marker);
+            });
+        })(marker, country);
+      }
+    }
+  }
+
+  function initMap() {
+    var polatsk = { lat: 55.483157, lng: 28.799062 };
+    var map = new google.maps.Map(document.getElementById('map'), {
+      zoom: 4,
+      center: polatsk,
+      fullscreenControl: false,
+    });
+
+    setMarkers(map);
+  }
+</script>
+<script async="" defer="" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAu6Kemc4P67XJXrTmdOmkuifQeYVk4Cn0&amp;callback=initMap"></script>
+<!--MAP END-->
